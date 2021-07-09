@@ -10,6 +10,8 @@ from argparse import ArgumentParser
 from utilities.utilities import get_uptime
 from utilities.logging.config import initialize_logging, initialize_logging_middleware
 
+from gamemaster import GameMaster
+
 
 # --- Welcome to your Emily API! --- #
 # See the README for guides on how to test it.
@@ -31,6 +33,8 @@ app = FastAPI()
 initialize_logging()
 initialize_logging_middleware(app)
 
+game_master = GameMaster()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -49,8 +53,8 @@ def health_check():
     }
 
 
-@app.get('/api')
-def hello():
+@app.post('/game')
+def new_game():
     return f'The API is running (uptime: {get_uptime()})'
 
 
@@ -61,4 +65,3 @@ if __name__ == '__main__':
         host=os.environ.get('HOST_IP'),
         port=int(os.environ.get('CONTAINER_PORT'))
     )
-
