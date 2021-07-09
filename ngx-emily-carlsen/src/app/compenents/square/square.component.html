@@ -1,3 +1,14 @@
-<div class="square" [class.accent]="accent" fxLayout="row" fxLayoutAlign="center center">
-  <span  class="piece" *ngIf="piece" [innerHTML]="piece.html"></span>
+<div
+  *ngIf="square"
+  class="square"
+  [class.accent]="accent"
+  [class.clicked]="square.clicked"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <span
+    class="piece"
+    *ngIf="square.piece"
+    [innerHTML]="square.piece.html"
+  ></span>
 </div>
