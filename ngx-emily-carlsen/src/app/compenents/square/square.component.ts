@@ -1,4 +1,4 @@
-import { Piece } from './../../models/piece';
+import { Square } from './../../models/square';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,12 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./square.component.scss']
 })
 export class SquareComponent implements OnInit {
-  @Input() accent = false;
-  @Input() piece!: Piece | null;
+  @Input() square!: Square;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  get accent(): boolean {
+    return (this.square.x + this.square.y) % 2 === 0;
+  }
 }

@@ -16,3 +16,7 @@
 2021-07-09 12:31:48.034 | INFO     | uvicorn.lifespan.on:startup:26 - Waiting for application startup.
 2021-07-09 12:31:48.035 | INFO     | uvicorn.lifespan.on:startup:38 - Application startup complete.
 2021-07-09 12:31:48.038 | INFO     | uvicorn.server:startup:166 - Uvicorn running on http://0.0.0.0:4242 (Press CTRL+C to quit)
+2021-07-09 12:52:23.302 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP POST for http://localhost:4242/game
+2021-07-09 12:52:23.306 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/game
+2021-07-09 12:53:22.383 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP POST for http://localhost:4242/game
+2021-07-09 12:53:22.385 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/game

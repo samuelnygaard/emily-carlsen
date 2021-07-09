@@ -1,6 +1,7 @@
 import uuid
-from gameconfig import GameConfig
-from board import Board
+from gamemaster.dto.board import Board
+from gamemaster.dto.gameconfig import GameConfig
+
 
 
 class Game:
@@ -12,7 +13,7 @@ class Game:
     fullmoves: int
 
     def __init__(self, config: GameConfig) -> None:
-        self.uuid = uuid.uuid4()
+        self.uuid = uuid.uuid4().hex
         self.board = Board()
         self.config = config
         self.white_to_move = True
