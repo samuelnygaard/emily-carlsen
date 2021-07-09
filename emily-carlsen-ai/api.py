@@ -1,4 +1,6 @@
 
+from game import Game
+from gameconfig import GameConfig
 import uvicorn
 import os
 
@@ -54,8 +56,9 @@ def health_check():
 
 
 @app.post('/game')
-def new_game():
-    return f'The API is running (uptime: {get_uptime()})'
+def new_game(game_config: GameConfig) -> Game:
+    game = game_master.create_game(game_config)
+    return game
 
 
 if __name__ == '__main__':
