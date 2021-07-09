@@ -1,0 +1,6 @@
+
+version: "3"
+services:
+  emily-emily-carlsen-ai-06m7pn:
+    command: /bin/sh -c "while sleep 1000; do :; done"
+

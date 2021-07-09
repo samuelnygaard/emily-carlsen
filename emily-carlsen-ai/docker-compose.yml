@@ -1,0 +1,23 @@
+version: "3"
+services:
+  emily-emily-carlsen-ai-06m7pn:
+    image: emily-emily-carlsen-ai-06m7pn
+    container_name: emily-emily-carlsen-ai-06m7pn
+    networks:
+      - emily-emily-carlsen-ai-06m7pn-network
+    build:
+      context: .
+      dockerfile: ./.devcontainer/Dockerfile
+    volumes:
+      - .:/workspace:cached
+    ports:
+      - ${NOTEBOOK_PORT}
+    runtime: ${RUNTIME}
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES}
+    ipc: ${IPC}
+networks:
+  emily-emily-carlsen-ai-06m7pn-network:
+    name: emily-emily-carlsen-ai-06m7pn-network
+    driver: bridge

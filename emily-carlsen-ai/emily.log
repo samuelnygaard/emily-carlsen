@@ -1,0 +1,14 @@
+2021-07-09 11:42:51.276 | INFO     | uvicorn.server:serve:63 - Started server process [1872]
+2021-07-09 11:42:51.280 | INFO     | uvicorn.lifespan.on:startup:26 - Waiting for application startup.
+2021-07-09 11:42:51.283 | INFO     | uvicorn.lifespan.on:startup:38 - Application startup complete.
+2021-07-09 11:42:51.286 | INFO     | uvicorn.server:startup:166 - Uvicorn running on http://0.0.0.0:4242 (Press CTRL+C to quit)
+2021-07-09 11:43:31.012 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP GET for http://localhost:4242/api/health
+2021-07-09 11:43:31.025 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/api/health
+2021-07-09 11:43:34.462 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP GET for http://localhost:4242/api
+2021-07-09 11:43:34.465 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/api
+2021-07-09 11:43:41.533 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP GET for http://localhost:4242/api
+2021-07-09 11:43:41.536 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/api
+2021-07-09 11:43:43.960 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP GET for http://localhost:4242/api
+2021-07-09 11:43:43.963 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/api
+2021-07-09 11:43:45.632 | INFO     | utilities.logging.handlers:http_request_logging_middleware:36 - HTTP GET for http://localhost:4242/api
+2021-07-09 11:43:45.635 | INFO     | utilities.logging.handlers:http_request_logging_middleware:38 - HTTP 200 for http://localhost:4242/api
