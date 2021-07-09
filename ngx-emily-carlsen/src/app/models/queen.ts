@@ -10,4 +10,8 @@ export class Queen implements Piece {
   get html(): string {
     return this.white ? '&#9813;' : '&#9819;';
   }
+
+  get symbol(): string {
+    return 'q';
+  }
 }

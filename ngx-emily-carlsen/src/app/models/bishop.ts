@@ -10,4 +10,8 @@ export class Bishop implements Piece {
   get html(): string {
     return this.white ? '&#9815;' : '&#9821;';
   }
+
+  get symbol(): string {
+    return 'b';
+  }
 }

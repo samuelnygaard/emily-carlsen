@@ -10,4 +10,8 @@ export class King implements Piece {
   get html(): string {
     return this.white ? '&#9812;' : '&#9818;';
   }
+
+  get symbol(): string {
+    return 'k';
+  }
 }

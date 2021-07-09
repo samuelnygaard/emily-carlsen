@@ -10,4 +10,8 @@ export class Rook implements Piece {
   get html(): string {
     return this.white ? '&#9814;' : '&#9820;';
   }
+
+  get symbol(): string {
+    return 'r';
+  }
 }

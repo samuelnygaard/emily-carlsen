@@ -10,4 +10,8 @@ export class Pawn implements Piece {
   get html(): string {
     return this.white ? '&#9817;' : '&#9823;';
   }
+
+  get symbol(): string {
+    return 'p';
+  }
 }

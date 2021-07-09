@@ -5,6 +5,7 @@ export class Square {
   y!: number;
   piece?: Piece;
   clicked = false;
+  moveableTo = false;
 
   constructor(x: number, y: number, piece?: Piece) {
     this.x = x;

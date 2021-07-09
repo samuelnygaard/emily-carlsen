@@ -6,6 +6,8 @@
   fxLayout="row"
   fxLayoutAlign="center center"
 >
+  <div class="moveable" *ngIf="square.moveableTo && !square.piece"></div>
+  <div class="moveable circle" *ngIf="square.moveableTo && square.piece"></div>
   <span
     class="piece"
     *ngIf="square.piece"

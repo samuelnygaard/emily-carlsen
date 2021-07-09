@@ -7,7 +7,6 @@ import { Knight } from './../../models/knight';
 import { Rook } from './../../models/rook';
 import { Component, OnInit } from '@angular/core';
 import { King } from 'src/app/models/king';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-board',
@@ -28,23 +27,55 @@ export class BoardComponent implements OnInit {
     if (this.lastClickedSquare) {
       this.lastClickedSquare.clicked = false;
     }
-    if (this.lastClickedSquare) {
+    if (this.lastClickedSquare && s.moveableTo) {
       this.moveTo(s);
     } else {
+      this.clearMoveableSquares();
       if (s.piece) {
         s.clicked = !s.clicked;
         if (s.clicked) {
-          this.lastClickedSquare = s;
+          this.markMoveableSquares(s);
         }
       }
     }
   }
 
+  markMoveableSquares(s: Square) {
+    this.lastClickedSquare = s;
+    const moveableSquares: [x: number, y: number][] = [];
+
+    if (s.piece?.symbol === 'p') {
+      let offset = -1;
+      if (s.piece.white) {
+        offset = 1;
+      }
+      moveableSquares.push([s.x, s.y + offset]);
+      moveableSquares.push([s.x, s.y + (offset * 2)]);
+    }
+
+    for (const sq of moveableSquares) {
+      this.getSquare(sq[0], sq[1]).moveableTo = true;
+    }
+  }
+
+  getSquare(x: number, y: number): Square {
+    return this.board[y][x];
+  }
+
   moveTo(s: Square) {
-    if (this.lastClickedSquare) {
+    if (this.lastClickedSquare && s.moveableTo) {
       s.piece = this.lastClickedSquare.piece;
       this.lastClickedSquare.piece = undefined;
       this.lastClickedSquare = undefined;
+      this.clearMoveableSquares();
+    }
+  }
+
+  clearMoveableSquares() {
+    for (const row of this.board) {
+      for (const s of row) {
+        s.moveableTo = false;
+      }
     }
   }
 

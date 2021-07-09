@@ -10,4 +10,8 @@ export class Knight implements Piece {
   get html(): string {
     return this.white ? '&#9816;' : '&#9822;';
   }
+
+  get symbol(): string {
+    return 'n';
+  }
 }

@@ -13,10 +13,33 @@
     -ms-user-select: none;
     user-select: none;
   }
+
+  .moveable {
+    height: 25px;
+    width: 25px;
+    background-color: grey;
+    border-color: grey;
+    opacity: .5;
+    border-radius: 25em;
+  }
+
+  .moveable.circle {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+
+    border: 5px solid;
+    background-color: transparent !important;
+  }
 }
 
 .square.accent {
   background-color: #769656;
+
+  .moveable {
+    background-color: lightgray;
+    border-color: lightgray;
+  }
 }
 
 .square.clicked {
