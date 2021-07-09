@@ -1,5 +1,7 @@
 from gameconfig import GameConfig
 from game import Game
+import chess
+
 
 class GameMaster:
 
@@ -11,3 +13,8 @@ class GameMaster:
     def create_game(self, config: GameConfig):
         game = Game(config)
         self.gamesById[game.uuid] = game
+
+    def getValidMoves(self, game: Game):
+        fen: str = game.toFen()
+        currentBoard = chess.Board(fen)
+        return currentBoard.legal_moves()
