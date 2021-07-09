@@ -1,0 +1,5 @@
+<div fxLayout="column">
+<div fxLayout="row" *ngFor="let row of board; index as i" >
+  <app-square *ngFor="let p of row; index as j" [piece]="p" [accent]="(i + j) % 2 === 0"></app-square>
+</div>
+</div>
