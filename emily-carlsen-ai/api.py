@@ -1,6 +1,6 @@
 
-from game import Game
-from gameconfig import GameConfig
+from gamemaster.dto.game import Game
+from gamemaster.dto.gameconfig import GameConfig
 import uvicorn
 import os
 
@@ -9,10 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from argparse import ArgumentParser
 
-from utilities.utilities import get_uptime
-from utilities.logging.config import initialize_logging, initialize_logging_middleware
-
-from gamemaster import GameMaster
+from gamemaster.gamemaster import GameMaster
+from gamemaster.dto.gamesummary import GameSummary
+from typing import List
 
 
 # --- Welcome to your Emily API! --- #
@@ -32,9 +31,6 @@ load_dotenv(dotenv_file)
 
 app = FastAPI()
 
-initialize_logging()
-initialize_logging_middleware(app)
-
 game_master = GameMaster()
 
 app.add_middleware(
@@ -49,16 +45,27 @@ app.add_middleware(
 @app.get('/api/health')
 def health_check():
     return {
-        'uptime': get_uptime(),
         'status': 'UP',
         'port': os.environ.get("HOST_PORT"),
     }
 
 
-@app.post('/game')
+@app.post('/games')
 def new_game(game_config: GameConfig) -> Game:
     game = game_master.create_game(game_config)
     return game
+
+
+@app.get('/games/{uuid}')
+def get_game(uuid: str) -> GameSummary:
+    game = game_master.get_game(uuid)
+    return game
+
+
+@app.get('/games')
+def list_games() -> List[GameSummary]:
+    games = game_master.list_games()
+    return games
 
 
 if __name__ == '__main__':
