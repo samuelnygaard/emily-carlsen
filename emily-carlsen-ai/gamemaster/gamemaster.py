@@ -2,6 +2,7 @@ from gamemaster.dto.gameconfig import GameConfig
 from gamemaster.dto.game import Game
 from gamemaster.dto.gamesummary import GameSummary
 from typing import List
+import chess
 
 
 class GameMaster:
@@ -18,3 +19,8 @@ class GameMaster:
         game = Game(config)
         self.games_by_id[game.uuid] = game
         return game
+
+    def getValidMoves(self, game: Game):
+        fen: str = game.toFen()
+        currentBoard = chess.Board(fen)
+        return currentBoard.legal_moves()
