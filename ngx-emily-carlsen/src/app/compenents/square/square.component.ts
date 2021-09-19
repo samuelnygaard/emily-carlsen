@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./square.component.scss']
 })
 export class SquareComponent implements OnInit {
+  @Input() rowIndex!: number;
   @Input() square!: Square;
 
   constructor() { }
@@ -15,6 +16,7 @@ export class SquareComponent implements OnInit {
   }
 
   get accent(): boolean {
-    return (this.square.x + this.square.y) % 2 === 0;
+    const r = this.square.index % 2 === 0;
+    return this.rowIndex % 2 ? !r : r;
   }
 }

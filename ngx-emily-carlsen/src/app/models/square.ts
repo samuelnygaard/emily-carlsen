@@ -1,15 +1,13 @@
 import { Piece } from './piece';
 
 export class Square {
-  x!: number;
-  y!: number;
+  index!: number;
   piece?: Piece;
   clicked = false;
   moveableTo = false;
 
-  constructor(x: number, y: number, piece?: Piece) {
-    this.x = x;
-    this.y = y;
+  constructor(index: number, piece?: Piece) {
+    this.index = index;
     this.piece = piece;
   }
 }

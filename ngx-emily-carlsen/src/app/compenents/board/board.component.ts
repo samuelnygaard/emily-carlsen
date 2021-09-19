@@ -1,12 +1,7 @@
+import { SliceBoardPipe } from './../../slice-board.pipe';
+import { Fen } from './../../utils';
 import { Square } from './../../models/square';
-import { Pawn } from './../../models/pawn';
-import { Piece } from './../../models/piece';
-import { Queen } from './../../models/queen';
-import { Bishop } from './../../models/bishop';
-import { Knight } from './../../models/knight';
-import { Rook } from './../../models/rook';
-import { Component, OnInit } from '@angular/core';
-import { King } from 'src/app/models/king';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-board',
@@ -14,13 +9,34 @@ import { King } from 'src/app/models/king';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
+  f!: Fen;
+  readonly startFen =
+    'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
   lastClickedSquare?: Square;
-  board!: Square[][];
+  whitesTurn = true;
 
-  constructor() {}
+  board!: Square[];
+  @Output() change: EventEmitter<string> = new EventEmitter<string>();
+
+  constructor(sliceBoardPipe: SliceBoardPipe) {
+    this.f = new Fen(sliceBoardPipe);
+  }
 
   ngOnInit(): void {
-    this.resetBoard();
+    this.reset();
+    this.change.emit(this.fen);
+  }
+
+  get fen(): string {
+    return this.f.boardToFen(this.board);
+  }
+
+  set fen(fen: string) {
+    this.board = this.f.fenToBoard(fen);
+  }
+
+  reset() {
+    this.board = this.f.fenToBoard(this.startFen);
   }
 
   clickSquare(s: Square) {
@@ -42,24 +58,17 @@ export class BoardComponent implements OnInit {
 
   markMoveableSquares(s: Square) {
     this.lastClickedSquare = s;
-    const moveableSquares: [x: number, y: number][] = [];
+    const i = this.board.indexOf(s);
 
     if (s.piece?.symbol === 'p') {
-      let offset = -1;
+      let offset = -8;
       if (s.piece.white) {
-        offset = 1;
+        offset = 8;
       }
-      moveableSquares.push([s.x, s.y + offset]);
-      moveableSquares.push([s.x, s.y + (offset * 2)]);
-    }
 
-    for (const sq of moveableSquares) {
-      this.getSquare(sq[0], sq[1]).moveableTo = true;
+      this.board[i + 1 * offset].moveableTo = true;
+      this.board[i + 2 * offset].moveableTo = true;
     }
-  }
-
-  getSquare(x: number, y: number): Square {
-    return this.board[y][x];
   }
 
   moveTo(s: Square) {
@@ -68,50 +77,14 @@ export class BoardComponent implements OnInit {
       this.lastClickedSquare.piece = undefined;
       this.lastClickedSquare = undefined;
       this.clearMoveableSquares();
+
+      this.change.emit(this.fen);
     }
   }
 
   clearMoveableSquares() {
-    for (const row of this.board) {
-      for (const s of row) {
-        s.moveableTo = false;
-      }
+    for (const p of this.board) {
+      p.moveableTo = false;
     }
-  }
-
-  resetBoard() {
-    const board: Square[][] = [];
-    for (let y = 0; y < 8; y++) {
-      const row: Square[] = [];
-      for (let x = 0; x < 8; x++) {
-        const piece: Piece | undefined = this.getStartPiece(x, y);
-        row.push(new Square(x, y, piece));
-      }
-
-      board.unshift(row);
-    }
-
-    this.board = board;
-  }
-
-  getStartPiece(x: number, y: number): Piece | undefined {
-    const white = y < 2;
-    if (y === 6 || y === 1) {
-      return new Pawn(white);
-    } else if (y === 7 || y === 0) {
-      const row = [
-        new Rook(white),
-        new Knight(white),
-        new Bishop(white),
-        new Queen(white),
-        new King(white),
-        new Bishop(white),
-        new Knight(white),
-        new Rook(white),
-      ];
-      return row[x];
-    }
-
-    return undefined;
   }
 }

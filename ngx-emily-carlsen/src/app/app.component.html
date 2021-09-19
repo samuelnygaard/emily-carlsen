@@ -1,1 +1,12 @@
-<app-board></app-board>
+<app-board #board (change)="change($event)"></app-board>
+<div fxLayout="column">
+  <div fxLayout="row">
+    <button fxFlex="5" *ngIf="!fenControl.enabled" (click)="fenControl.enable()">FEN</button>
+    <button fxFlex="5" *ngIf="fenControl.enabled" (click)="fenControl.disable()">FEN</button>
+    <input fxFlex="95" type="text" [formControl]="fenControl" />
+  </div>
+  <div *ngIf="fenControl.enabled" fxLayout="row">
+    <button (click)="board.reset()">RESET</button>
+    <button (click)="board.fen = fenControl.value">APPLY</button>
+  </div>
+</div>
